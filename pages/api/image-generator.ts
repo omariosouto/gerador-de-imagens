@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getScreenshot } from '../../infra/getScreenshot';
+// import { getScreenshot } from '../../infra/getScreenshot';
 
 const getHTML = ({ title }) => `
 <html lang="en">
@@ -34,7 +34,7 @@ const getHTML = ({ title }) => `
 `;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const isHTMLDebugMode = false;
+  const isHTMLDebugMode = true;
   const html = getHTML({
     title: req.query.title || 'Adicione na URL: /?title=Titulo',
   })
@@ -43,14 +43,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Content-Type', 'text/html')
     return res.end(html)
   }
-
-  const file = await getScreenshot(html);
-
-  res.setHeader('Content-Type', `image/png`)
-  res.setHeader(
-    'Cache-Control',
-    'public, immutable, no-transform, s-maxage=31536000, max-age=31536000'
-  );
-
-  res.end(file);
 }
