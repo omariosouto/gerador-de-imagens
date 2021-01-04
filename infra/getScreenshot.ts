@@ -1,13 +1,9 @@
 import puppeteer, { Page } from 'puppeteer-core'
 import chrome from 'chrome-aws-lambda'
 
-interface Options {
-  args: string[]
-  executablePath: string
-  headless: boolean
-}
-export async function getOptions(isDev: boolean): Promise<Options> {
-  let options: Options
+export async function getOptions() {
+  const isDev = !process.env.AWS_REGION
+  let options;
 
   const chromeExecPaths = {
     win32: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
@@ -35,12 +31,12 @@ export async function getOptions(isDev: boolean): Promise<Options> {
 }
 
 let _page: Page | null
-async function getPage(isDev: boolean): Promise<Page> {
+async function getPage(): Promise<Page> {
   if (_page) {
     return _page
   }
 
-  const options = await getOptions(isDev)
+  const options = await getOptions()
   const browser = await puppeteer.launch(options)
 
   _page = await browser.newPage()
@@ -48,8 +44,8 @@ async function getPage(isDev: boolean): Promise<Page> {
   return _page
 }
 
-export async function getScreenshot(html, isDev) {
-  const page = await getPage(isDev)
+export async function getScreenshot(html) {
+  const page = await getPage()
 
   await page.setViewport({ width: 800, height: 800 })
   await page.setContent(html)

@@ -35,7 +35,6 @@ const getHTML = ({ title }) => `
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const isHTMLDebugMode = false;
-  const isDev = !process.env.AWS_REGION
   const html = getHTML({
     title: req.query.title || 'Título',
   })
@@ -45,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.end(html)
   }
 
-  const file = await getScreenshot(html, isDev);
+  const file = await getScreenshot(html);
 
   res.setHeader('Content-Type', `image/png`)
   res.setHeader(
