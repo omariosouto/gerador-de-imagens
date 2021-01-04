@@ -19,7 +19,7 @@ const getHTML = ({ title }) => `
       }
 
       h1 {
-        font-size: 10vw;
+        font-size: 7vw;
         color: #fff;
         text-align: center;
       }
@@ -36,7 +36,7 @@ const getHTML = ({ title }) => `
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const isHTMLDebugMode = false;
   const html = getHTML({
-    title: req.query.title || 'Título',
+    title: req.query.title || 'Adicione na URL: /?title=Titulo',
   })
   
   if (isHTMLDebugMode) {
