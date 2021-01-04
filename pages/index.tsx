@@ -7,7 +7,7 @@ export default function Home() {
       </h1>
 
       <div>
-        <img src="http://localhost:3000/api/image-generator?title=Imagem Gerada" />
+        <img src="/api/image-generator?title=Imagem Gerada" />
       </div>
 
       <a href="/api/image-generator?title=Imagem Gerada">
