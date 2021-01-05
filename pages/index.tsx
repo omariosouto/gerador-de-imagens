@@ -7,6 +7,7 @@ export default function Home() {
       </h1>
 
       <div>
+        <img src="https://placehold.it/500x500?text=Passa a manteiga em cima do botão de like" />
         <img src="/api/image-generator?title=Imagem Gerada" />
       </div>
 

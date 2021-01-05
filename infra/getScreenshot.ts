@@ -44,13 +44,14 @@ async function getPage(): Promise<Page> {
   return _page
 }
 
-export async function getScreenshot(html) {
-  const page = await getPage()
 
-  await page.setViewport({ width: 800, height: 800 })
-  await page.setContent(html)
+export async function getScreenshot(html: string, { width, height } = { width: 800, height: 800 }) {
+  const page = await getPage();
 
-  const file = await page.screenshot({ type: 'png' })
+  await page.setContent(html);
+  await page.setViewport({ width, height });
+
+  const file = await page.screenshot({ type: 'png' });
 
   return file;
 }
