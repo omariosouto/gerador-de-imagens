@@ -5,12 +5,26 @@ export async function getOptions() {
   const isDev = !process.env.AWS_REGION
   let options;
 
-  const chromeExecPaths = {
+  interface chromeExecPathsInterface {
+    aix?: string;
+    android?: string;
+    freebsd?: string;
+    haiku?: string;
+    openbsd?: string;
+    sunos?: string;
+    cygwin?: string;
+    netbsd?: string;
+    win32: string;
+    linux: string;
+    darwin: string;
+  }
+
+  const chromeExecPaths: chromeExecPathsInterface = {
     win32: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     linux: '/usr/bin/google-chrome',
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
   }
-  
+
   const exePath = chromeExecPaths[process.platform]
 
   if (isDev) {
