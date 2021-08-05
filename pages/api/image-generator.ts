@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getScreenshot } from '../../infra/getScreenshot';
 
-const getHTML = ({ title }) => `
+const getHTML = ({ title }: any) => `
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const html = getHTML({
     title: req.query.title || 'Adicione na URL: /?title=Titulo',
   })
-  
+
   if (isHTMLDebugMode) {
     res.setHeader('Content-Type', 'text/html')
     return res.end(html)
@@ -48,8 +48,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 
   const file = await getScreenshot(html, { width: 1920, height: 1080 });
-  
-  
+
+
   res.setHeader('Content-Type', 'image/png')
   res.end(file);
 }
